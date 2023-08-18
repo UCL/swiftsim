@@ -1440,11 +1440,11 @@ static void graph_init_scotch(struct space *s, int periodic,  SCOTCH_Num *weight
 }
 
 /**
- * @brief Partition the given space into a number of connected regions and 
+ * @brief Partition the given space into a number of connected regions and
  * map to available architecture.
  *
- * Split the space and map to compute architecture using Scotch. to derive 
- * a partitions using the given edge and vertex weights. If no weights 
+ * Split the space and map to compute architecture using Scotch. to derive
+ * a partitions using the given edge and vertex weights. If no weights
  * are given then an unweighted partition is performed.
  *
  * @param nodeID the rank of our node.
@@ -1556,7 +1556,7 @@ static void pick_scotch(int nodeID, struct space *s, int nregions,
     SCOTCH_Graph graph;
     SCOTCH_Num baseval = 0;
     SCOTCH_Num vertnbr = ncells; /* Number of vertices */
-    SCOTCH_Num edgenbr = (26 * vertnbr);       /* Number of edges (arcs)   */ 
+    SCOTCH_Num edgenbr = (26 * vertnbr);       /* Number of edges (arcs)   */
 
     SCOTCH_Num *verttab;   /* Vertex array [vertnbr + 1] */
     verttab = (SCOTCH_Num*) malloc((vertnbr + 1) * sizeof(SCOTCH_Num));
@@ -1620,6 +1620,8 @@ static void pick_scotch(int nodeID, struct space *s, int nregions,
 // #endif
     /* Read in architecture graph. */
     SCOTCH_Arch archdat;
+    /* Create the architecture file */
+
     /* Load the architecture graph in .tgt format */
     FILE* arch_file = fopen("target.tgt", "r");
     if (arch_file == NULL) {
@@ -1633,7 +1635,7 @@ static void pick_scotch(int nodeID, struct space *s, int nregions,
     SCOTCH_stratInit(&stradat);
     SCOTCH_Num num_vertices;
     SCOTCH_Num flagval = SCOTCH_STRATBALANCE;
-    
+
     num_vertices = SCOTCH_archSize(&archdat);
     if (SCOTCH_stratGraphMapBuild(&stradat, flagval, num_vertices, 0.5) != 0)
       error("Error setting the Scotch mapping strategy.");
@@ -1661,7 +1663,7 @@ static void pick_scotch(int nodeID, struct space *s, int nregions,
     SCOTCH_stratExit(&stradat);
     SCOTCH_archExit(&archdat);
     fclose(arch_file);
-    
+
 
     if (verttab != NULL) free(verttab);
     if (velotab != NULL) free(velotab);
@@ -2193,7 +2195,7 @@ static void repart_memory_metis(struct repartition *repartition, int nodeID,
  * @param nr_nodes the number of nodes.
  * @param s the space of cells holding our local particles.
  */
-static void repart_scotch(int vweights, int eweights, int timebins, 
+static void repart_scotch(int vweights, int eweights, int timebins,
                           struct repartition *repartition, int nodeID,
                           int nr_nodes, struct space *s, struct task *tasks,
                           int nr_tasks) {
@@ -2430,10 +2432,10 @@ void partition_repartition(struct repartition *reparttype, int nodeID,
 
   } else if (reparttype->type == REPART_METIS_VERTEX_COUNTS) {
     repart_memory_metis(reparttype, nodeID, nr_nodes, s);
-  
+
   } else if (reparttype->type == REPART_NONE) {
     /* Doing nothing. */
-  
+
   } else {
     error("Impossible repartition type");
   }
@@ -2441,16 +2443,16 @@ void partition_repartition(struct repartition *reparttype, int nodeID,
   if (s->e->verbose)
     message("took %.3f %s.", clocks_from_ticks(getticks() - tic),
             clocks_getunit());
-#elif defined(WITH_MPI) && defined(HAVE_SCOTCH)   
+#elif defined(WITH_MPI) && defined(HAVE_SCOTCH)
   ticks tic = getticks();
 
   if (reparttype->type == REPART_SCOTCH) {
     repart_scotch(1, 1, 0, reparttype, nodeID, nr_nodes, s, tasks,
                   nr_tasks);
-  
+
   } else if (reparttype->type == REPART_NONE) {
     /* Doing nothing. */
-  
+
   } else {
     error("Impossible repartition type");
   }
@@ -2709,7 +2711,7 @@ void partition_init(struct partition *partition,
 
   } else if (strcmp("timecosts", part_type) == 0) {
     repartition->type = REPART_METIS_VERTEX_COSTS_TIMEBINS;
-  
+
   } else if (strcmp("scotch", part_type) == 0) {
     repartition->type = REPART_SCOTCH;
 
