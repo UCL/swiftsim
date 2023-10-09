@@ -44,7 +44,7 @@ Scotch carries out a _mapping_ of a _source_ (or process) graph onto a _target_ 
 
 In the following examples it is assumed that one mpi rank is mapped to each Cosma 8 NUMA region. This enforces that `cpus-per-task=16` is defined in the SLURM submission script. The Cosma 8 nodes consist of 8 NUMA regions per node, with 4 NUMA regions per socket. Example `tleaf` files for various setups are given below, where the intrasocket communication cost between NUMA regions is set at _5_, intranode but across sockets is set at _10_ and the internode cost is set at _1000_. These weightings are estimated values but have been shown to give satisfactory results in the testcases explored. An estimate of the relative latency between NUMA regions on a node can be obtained by using [hwloc](https://github.com/open-mpi/hwloc), specifically by using `hwloc-distances`.
 
-**Example tleaf graphs to represent various Cosma 8 configurations** 
+**Example tleaf graphs to represent various Cosma8 configurations** 
 | Number of nodes | Number of MPI ranks | tleaf                   |
 | --------------- | ------------------- | ----------------------- |
 | 1               | 2                   | tleaf 1 2 5             |
