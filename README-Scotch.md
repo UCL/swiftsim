@@ -70,7 +70,7 @@ The SWIFT edge and vertex weights are estimated in the code, however edge weight
 
 Test Runs
 ----------------
-Teh following results were obtained on cosma 8 running with the `SCOTCH_STRATBALANCE` strategy string and an imbalance ratio of `0.05`.
+The following results were obtained on cosma8 running with the `SCOTCH_STRATBALANCE` strategy string and an imbalance ratio of `0.05`.
 
 
 | Testcase | Resources                   | flags           | Scotch (s) | Metis (s) |
