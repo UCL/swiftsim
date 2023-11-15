@@ -2281,13 +2281,7 @@ static void repart_scotch(int vweights, int eweights, int timebins,
   }
 
   /* Allocate cell list for the partition. If not already done. */
-#ifdef HAVE_SCOTCH
-  int refine = 1;
-#endif
   if (repartition->ncelllist != s->nr_cells) {
-#ifdef HAVE_SCOTCH
-    refine = 0;
-#endif
     free(repartition->celllist);
     repartition->ncelllist = 0;
     if ((repartition->celllist = (int *)malloc(sizeof(int) * s->nr_cells)) ==
