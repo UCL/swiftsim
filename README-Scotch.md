@@ -95,17 +95,6 @@ Test Runs
 ----------------
 The following results were obtained on cosma8 running with the `SCOTCH_STRATBALANCE` strategy string and an imbalance ratio of `0.05`.
 
-
-| Testcase | Resources                   | flags           | Scotch (s) | Metis (s) |
-| -------- | --------------------------- | --------------  | ---------- |  -------- |
-| EAGLE_6  | nodes = 1 (8 NUMA regions)  | `--map_by numa` | 1307.8     | 1401.3    |
-| EAGLE_6  | nodes = 2 (16 NUMA regions) | `--map_by numa` | 1294.6     | 1314.2    |
-| EAGLE_25 | nodes = 2 (16 NUMA regions) | `--map_by numa` | 8381.4     | 8420.6    |
-| EAGLE_50 | nodes = 2 (16 NUMA regions) | `--map_by numa` | 69312.1    | 67273.6   |
-| EAGLE_50 | nodes = 4 (32 NUMA regions) | `--map_by numa` | 51803.8    | 51058.3   |
-| EAGLE_50 | nodes = 8 (64 NUMA regions) | `--map_by numa` | 41941.1    | 42700.5   |
-
-
 | Testcase   | Resources                   | flags           | Node types | Scotch32 (s) | Scotch64 (s) | Scotch local (s) | ParMetis (s) | Metis (s) |
 | ---------- | --------------------------- | --------------  | ---------- | ------------ | ------------ | ---------------- | ------------ | --------- |
 | EAGLE_006  | nodes = 1 (8 NUMA regions)  | `--map_by numa` | Milan      | 1191.8       | 1198.2       | 1173.6           | 1167.4       | 1176.4    |
