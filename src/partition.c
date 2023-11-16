@@ -24,7 +24,8 @@
  *  a grid of cells into geometrically connected regions and distributing
  *  these around a number of MPI nodes.
  *
- *  Currently supported partitioning types: grid, vectorise and METIS/ParMETIS.
+ *  Currently supported partitioning types: 
+ *  grid, vectorise, METIS/ParMETIS and SCOTCH.
  */
 
 /* Config parameters. */
