@@ -37,6 +37,9 @@ Configure SWIFT with Scotch
 
 Follow the usual installation [instructions](https://gitlab.cosma.dur.ac.uk/swift/swiftsim/-/blob/master/INSTALL.swift) but if Scotch installed locally the added `--with-scotch=\path-to-scotch` flag will need to be passed to `./configure`
 
+**Warning on compiler inclusion preferences**
+
+
 Running with Scotch
 ----------------
 
@@ -81,6 +84,11 @@ The following results were obtained on cosma8 running with the `SCOTCH_STRATBALA
 | EAGLE_50 | nodes = 2 (16 NUMA regions) | `--map_by numa` | 69312.1    | 67273.6   |
 | EAGLE_50 | nodes = 4 (32 NUMA regions) | `--map_by numa` | 51803.8    | 51058.3   |
 | EAGLE_50 | nodes = 8 (64 NUMA regions) | `--map_by numa` | 41941.1    | 42700.5   |
+
+Current Limitations
+----------------
+1. As seen in the table above the current Scotch implementation is comparable in performance to the ParMETIS (METIS) implementation on problem sizes up to EAGLE_50. However, the current implementation is running into difficulties on the EAGLE_100 testcase. The Scotch partition in this case causes two separate errors: Memory overflow when running across 8 Cosma8 nodes and on 16 Cosma8 nodes the resultant Scotch partition results in certain ranks having greater than 64 MPI proxies which is a hard limit set within Swift. Ongoing work is focused on sorting out this issue.
+2. The current implementation has only been tested against periodic domains. This is where each vertex in Swift has exactly 26 neighbours. Additions to the edge mean calculation in the `pick_scotch` function will need to be carried out to expand to non-periodic domains.
 
 Notes
 ----------------
