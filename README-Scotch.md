@@ -134,6 +134,12 @@ The following results were obtained on cosma8 running with the `SCOTCH_STRATBALA
 
 
 
+Note:
+
+Cosma 8 cluster is currently comprised of:
+
+    * 360 compute nodes with 1 TB RAM and dual 64-core AMD EPYC 7H12 water-cooled processors at 2.6GHz ("Rome"-type nodes)
+    * Upgraded with an additional 168 nodes with dual Milan 7763 processors at 2.45GHz ("Milan"-type nodes)
 
 
 
