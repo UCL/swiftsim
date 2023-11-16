@@ -18,7 +18,7 @@ Instructions for installing locally on Cosma 8
 ----------------
 _Environment_
 ```
-    module load cosma/2018 python/3.6.5 intel_comp/2022.1.2 compiler openmpi/4.1.1 fftw/3.3.9 parallel_hdf5/1.12.0 parmetis/4.0.3-64bit gsl/2.5
+    module load cosma/2018 python/3.6.5 intel_comp/2022.1.2 compiler openmpi/4.1.4 fftw/3.3.9 parallel_hdf5/1.12.0 parmetis/4.0.3-64bit metis/5.1.0-64bit gsl/2.5
     module load cmake
     module load bison
 ```
@@ -35,10 +35,30 @@ Navigate to the Scotch directory and carry out the following commands
 Configure SWIFT with Scotch
 ----------------
 
-Follow the usual installation [instructions](https://gitlab.cosma.dur.ac.uk/swift/swiftsim/-/blob/master/INSTALL.swift) but if Scotch installed locally the added `--with-scotch=\path-to-scotch` flag will need to be passed to `./configure`
+Follow the usual installation [instructions](https://gitlab.cosma.dur.ac.uk/swift/swiftsim/-/blob/master/INSTALL.swift) but if Scotch installed locally the added `--with-scotch=/full/scotch/install/dir/path/` flag will need to be passed to `./configure`
+
+
+There are also two beta-testing Scotch modules available at the time of this writing: 
+(as indicated by the dot before the version number, `.7.0.4`):
+You can have the modules environment as 
+```
+    module load cosma/2018 python/3.6.5 intel_comp/2022.1.2 compiler openmpi/4.1.4 fftw/3.3.9 parallel_hdf5/1.12.0 parmetis/4.0.3-64bit metis/5.1.0-64bit gsl/2.5'
+```
+Then, 
+```
+    module load scotch/.7.0.4-32bit
+```
+or 
+```
+    module load scotch/.7.0.4-64bit
+```
+depending on what version of Scotch, 32-bit or 64-bit, you want to use.
 
 **Warning on compiler inclusion preferences**
 
+You can use the `modules` environment to load a suitable Scotch module. In `Cosma8` you can use `module load scotch/.7.0.4-32bit` or `module load scotch/.7.0.4-64bit` to get the 32- or the 64-bit compiled module for Scotch. At the moment of this writing, both 32 and 64 bit versions of Scotch can be loaded together, i.e. there is no exclusion check in the module files. There could be a case where both are needed, for testing or development purposes, for example. Then, care must be taken to avoid unintentional compile time behaviour: the order of the `-I/.../...` commandline switches that will find their way in the `Makefile`(s) depends on what the compiler used prefers in the order of inclusion -- so if you have loaded first the 32 bit module, its corresponding `-I` switch will be placed first, and if the 64 bit module is loaded afterwards in the environment, it will be placed after, etc. 
+
+Also, in the case of using a locally-built Scotch package, it is advised that you _do not_ load any Scotch module in advance in the environment, and instead use `./configure` with the `--with-scotch=/full/scotch/install/dir/path/` in order to make sure that the `Makefile` will pick up the correct include and library files.
 
 Running with Scotch
 ----------------
