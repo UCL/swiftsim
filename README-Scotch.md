@@ -105,6 +105,15 @@ The following results were obtained on cosma8 running with the `SCOTCH_STRATBALA
 | EAGLE_50 | nodes = 4 (32 NUMA regions) | `--map_by numa` | 51803.8    | 51058.3   |
 | EAGLE_50 | nodes = 8 (64 NUMA regions) | `--map_by numa` | 41941.1    | 42700.5   |
 
+
+| Testcase   | Resources                   | flags           | Node types | Scotch32 (s) | Scotch64 (s) | Scotch local (s) | ParMetis (s) | Metis (s) |
+| ---------- | --------------------------- | --------------  | ---------- | ------------ | ------------ | ---------------- | ------------ | --------- |
+| EAGLE_006  | nodes = 1 (8 NUMA regions)  | `--map_by numa` | Milan      | 1191.8       |              | 1173.6           | 1167.4       | 1176.4    |
+|            |          -//-               |     -//         | Milan      | 1176.7       |              | 1193.8           | 1212.5       | 1182.1    |
+|            |          -//-               |     -//         | Milan      | 1174.5       |              | 1175.2           | 1229.4       | 1180.7    |
+|            |          -//-               |     -//         | Rome       | 1368.8       |              | 1351.5           | 1332.8       | 1334.9    |
+
+
 Current Limitations
 ----------------
 1. As seen in the table above the current Scotch implementation is comparable in performance to the ParMETIS (METIS) implementation on problem sizes up to EAGLE_50. However, the current implementation is running into difficulties on the EAGLE_100 testcase. The Scotch partition in this case causes two separate errors: Memory overflow when running across 8 Cosma8 nodes and on 16 Cosma8 nodes the resultant Scotch partition results in certain ranks having greater than 64 MPI proxies which is a hard limit set within Swift. Ongoing work is focused on sorting out this issue.
