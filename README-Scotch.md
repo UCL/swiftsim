@@ -143,11 +143,40 @@ Cosma 8 cluster is currently comprised of:
 
 
 
+Managing verbosity, logging info, dumping of intermediate results, debug info, restart files
+---------------------------
+* If you pass the commandline switch `--enable-debugging-checks` to `./configure` while building, be prepared for additional logging and dump files.
+* For large simulations, the amount of data dumps can easily overflow one's quota allowances; for example, the E_100 models can dump files on the order of `1TiBytes`, depending on runtime configuration, which can be specified in a `.yml` file. Please check the SWIFT docs. To keep dumping / logging to a local minimum, you can put the following sections / lines, for example, in a file `eagle_100.yml`:
 
 
+```
+# Parameters governing the snapshots
+Snapshots:
+  select_output_on: 1
+  select_output: output_list.yml
+  basename:            eagle # Common part of the name of output files
+  scale_factor_first:  0.91  # Scale-factor of the first snaphot (cosmological run)
+  time_first:          0.01  # Time of the first output (non-cosmological run) (in internal units)
+  delta_time:          1.01  # Time difference between consecutive outputs (in internal units)
+  recording_triggers_part: [1.0227e-4, 1.0227e-5]   # Recording starts 100M and 10M years before a snapshot
+  recording_triggers_bpart: [1.0227e-4, 1.0227e-5]  # Recording starts 100M and 10M years before a snapshot
+```
 
+and the contents of `output_list.yml` can be
+```
+Default:
+  Standard_Gas: off
+  Standard_DM: off
+  Standard_DMBackground: off
+  Standard_Stars: off
+  Standard_BH: off
+```
 
-
+In the `eagle_100.yml` we can also specify that we do not want the `restart` dumps:
+```
+Restarts:
+  enable:    0
+```
 
 
 Current Limitations
