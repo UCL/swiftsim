@@ -89,7 +89,7 @@ Scotch carries out the mapping using various strategies which are outlined in th
 
 One issue with Scotch is that when the number of mpi ranks is comparable to the dimensionality of the modelled SWIFT system the optimal mapping strategy doesn't neccessarily map to all available NUMA regions. At present this isn't handled explicity in the code and the paritition reverts to a vectorised or previous partitioning.
 
-The SWIFT edge and vertex weights are estimated in the code, however edge weights are not symmetric - this causes an issue with SWIFT. Therefore, in the SCOTCH Graph the edge weigths are updated to equal to the sum of the two associated edge weights as calculated from SWIFT.
+The SWIFT edge and vertex weights are estimated in the code, however edge weights are not symmetric - this causes an issue with SWIFT. Therefore, in the SCOTCH Graph the edge weigths are updated to equal to the average value (sum/2) of the two associated edge weights as calculated from SWIFT.
 
 Test Runs
 ----------------
